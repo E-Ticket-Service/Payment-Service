@@ -1,3 +1,14 @@
 spring:
   application:
     name: payment-service
+  datasource:
+    url: jdbc:postgresql://${HOST}:${PORT:5432}/${DB_NAME}?currentSchema=${SCHEMA}
+    driver-class-name: org.postgresql.Driver
+    username: ${USERNAME}
+    password: ${PAROL}
+    hikari:
+      minimum-idle: 2
+      idle-timeout: 40000
+      maximum-pool-size: 10
+      connection-timeout: 10000
+      keepalive-time: 30000
