@@ -1,7 +1,6 @@
 package abb.tech.payment_service.controller;
 
-import abb.tech.payment_service.enums.CurrencyEnum;
-import abb.tech.payment_service.enums.PaymentMethod;
+
 import abb.tech.payment_service.service.StripePaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +26,10 @@ public class StripePaymentController {
             @RequestParam BigDecimal amount,
             @RequestParam String currency,
             @RequestParam String description,
-            @RequestParam String paymentMethod
+            @RequestParam String paymentMethod,
+            @RequestParam Long orderId
     ) {
-
-        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description,paymentMethod);
+        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description,paymentMethod,orderId);
         return ResponseEntity.ok(stringObjectMap);
     }
 

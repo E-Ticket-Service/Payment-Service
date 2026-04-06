@@ -22,6 +22,7 @@ public interface StripeClient {
             @RequestParam(value = "amount") BigDecimal amount,
             @RequestParam(value = "currency") String currency,
             @RequestParam(value = "description") String description,
-            @RequestParam("payment_method_types[]") String paymentMethod
+            @RequestParam(value = "payment_method_types[]") String paymentMethod,
+            @RequestParam(value = "order_id")Long orderId
     );
 }
