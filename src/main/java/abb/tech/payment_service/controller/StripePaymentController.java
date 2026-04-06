@@ -20,7 +20,7 @@ public class StripePaymentController {
         this.stripePaymentService = stripePaymentService;
     }
 
-    @GetMapping("/create-intent")
+    @PostMapping("/create-intent")
     @Transactional(readOnly = true)
     public ResponseEntity<Map<String, Object>> createStripePayment(
             @RequestParam BigDecimal amount,
@@ -29,7 +29,7 @@ public class StripePaymentController {
             @RequestParam String paymentMethod,
             @RequestParam Long orderId
     ) {
-        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description,paymentMethod,orderId);
+        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description, paymentMethod, orderId);
         return ResponseEntity.ok(stringObjectMap);
     }
 

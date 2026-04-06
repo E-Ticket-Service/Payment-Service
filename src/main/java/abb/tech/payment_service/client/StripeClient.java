@@ -13,16 +13,16 @@ import java.util.Map;
 
 @FeignClient(
         name = "stripe",
-        url = "https://api.stripe.com",
+        url = "https://api.stripe.com/v1",
         configuration = StripeFeignConfig.class
 )
 public interface StripeClient {
-    @PostMapping(value = "/v1/payment_intents", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(value = "/payment_intents", consumes = "application/x-www-form-urlencoded")
     Map<String, Object> createPayment(
             @RequestParam(value = "amount") BigDecimal amount,
             @RequestParam(value = "currency") String currency,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "payment_method_types[]") String paymentMethod,
-            @RequestParam(value = "order_id")Long orderId
+            @RequestParam("metadata[orderId]")Long orderId
     );
 }
