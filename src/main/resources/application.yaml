@@ -1,6 +1,8 @@
 spring:
   application:
     name: payment-service
+
+
   datasource:
     url: jdbc:postgresql://${HOST}:${PORT:5432}/${DB_NAME}?currentSchema=${SCHEMA}
     driver-class-name: org.postgresql.Driver
@@ -12,3 +14,26 @@ spring:
       maximum-pool-size: 10
       connection-timeout: 10000
       keepalive-time: 30000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog.yaml
+
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api-payment-service
+
+stripe:
+  secret-key: sk_test_51TGggGKBLqnmCsQd3S2ilDZWRuaOMVOUyQnOdLc4obN52FZi8dlk6Qn3VUG0Hv0MeAOM8nQHSp7vNSNAKJZyT1r700y7k6Qwsc
