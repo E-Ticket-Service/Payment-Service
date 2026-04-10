@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/payment")
 public class StripePaymentController {
     @Autowired
     private final StripePaymentService stripePaymentService;
