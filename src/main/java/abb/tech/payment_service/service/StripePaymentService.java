@@ -22,8 +22,11 @@ public class StripePaymentService {
             BigDecimal amount, String currency, String description, String paymentMethod
             ,Long orderId
             ) {
+        Long amountInCents = amount
+                .multiply(BigDecimal.valueOf(100))
+                .longValueExact();
 
-        return client.createPayment(amount, currency, description,paymentMethod,orderId);
+        return client.createPayment(amountInCents, currency, description,paymentMethod,orderId);
 
     }
 }

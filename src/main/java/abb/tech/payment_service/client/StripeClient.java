@@ -19,7 +19,7 @@ import java.util.Map;
 public interface StripeClient {
     @PostMapping(value = "/payment_intents", consumes = "application/x-www-form-urlencoded")
     Map<String, Object> createPayment(
-            @RequestParam(value = "amount") BigDecimal amount,
+            @RequestParam(value = "amount") Long amount,
             @RequestParam(value = "currency") String currency,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "payment_method_types[]") String paymentMethod,
