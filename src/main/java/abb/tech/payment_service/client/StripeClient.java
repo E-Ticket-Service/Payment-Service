@@ -25,4 +25,10 @@ public interface StripeClient {
             @RequestParam(value = "payment_method_types[]") String paymentMethod,
             @RequestParam("metadata[orderId]")Long orderId
     );
+
+    @PostMapping(value = "/refunds", consumes = "application/x-www-form-urlencoded")
+    Map<String, Object> refundPayment(
+            @RequestParam(value = "payment_intent") String paymentIntentId,
+            @RequestParam(value = "amount", required = false) Long amount
+    );
 }

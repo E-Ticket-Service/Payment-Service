@@ -29,4 +29,9 @@ public class StripePaymentService {
         return client.createPayment(amountInCents, currency, description,paymentMethod,orderId);
 
     }
+
+    public Map<String, Object> refund(String paymentIntentId, BigDecimal amount) {
+        Long amountInCents = amount != null ? amount.multiply(BigDecimal.valueOf(100)).longValueExact() : null;
+        return client.refundPayment(paymentIntentId, amountInCents);
+    }
 }

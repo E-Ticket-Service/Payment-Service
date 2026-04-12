@@ -108,4 +108,20 @@ public class KafkaConfig {
                 .replicas(1)
                 .build();
     }
+
+    @Bean
+    public NewTopic refundRequestTopic() {
+        return TopicBuilder.name(REFUND_REQUEST_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic refundResultTopic() {
+        return TopicBuilder.name(REFUND_RESULT_TOPIC)
+                .partitions(3)
+                .replicas(1)
+                .build();
+    }
 }

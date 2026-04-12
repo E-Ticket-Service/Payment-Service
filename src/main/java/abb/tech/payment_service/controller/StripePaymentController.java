@@ -33,4 +33,13 @@ public class StripePaymentController {
         return ResponseEntity.ok(stringObjectMap);
     }
 
+    @PostMapping("/refund")
+    public ResponseEntity<Map<String, Object>> refundPayment(
+            @RequestParam String paymentIntentId,
+            @RequestParam(required = false) BigDecimal amount
+    ) {
+        Map<String, Object> refund = stripePaymentService.refund(paymentIntentId, amount);
+        return ResponseEntity.ok(refund);
+    }
+
 }
