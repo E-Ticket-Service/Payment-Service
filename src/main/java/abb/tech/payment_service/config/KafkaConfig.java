@@ -86,14 +86,6 @@ public class KafkaConfig {
     }
 
     @Bean
-    public NewTopic orderCreatedTopic() {
-        return TopicBuilder.name(ORDER_CREATED_TOPIC)
-                .partitions(3)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
     public NewTopic paymentSuccessTopic() {
         return TopicBuilder.name(PAYMENT_SUCCESS_TOPIC)
                 .partitions(3)

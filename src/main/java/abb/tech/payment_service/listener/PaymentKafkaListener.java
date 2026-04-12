@@ -25,45 +25,6 @@ public class PaymentKafkaListener {
     private final StripePaymentService stripePaymentService;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    @KafkaListener(topics = ORDER_CREATED_TOPIC, groupId = PAYMENT_SERVICE_GROUP)
-    public void handleOrderCreated(OrderCreatedEvent event) {
-        try {
-            log.info("Payment started for Order ID: {}", event.getOrderId());
-
-            Map<String, Object> result = stripePaymentService.createPayment(
-                    event.getTotalAmount(),
-                    event.getCurrency(),
-                    event.getDescription(),
-                    event.getPaymentMethod(),
-                    event.getOrderId()
-            );
-
-            String transactionId = (String) result.get("id");
-            PaymentSuccessEvent successEvent = PaymentSuccessEvent.builder()
-                    .paymentId(transactionId)
-                    .orderId(event.getOrderId())
-                    .userId(event.getUserId())
-                    .amount(event.getTotalAmount())
-                    .paidAt(LocalDateTime.now())
-                    .status("SUCCESS")
-                    .userEmail(event.getUserEmail())
-                    .build();
-            kafkaTemplate.send(PAYMENT_SUCCESS_TOPIC, successEvent);
-            log.info("Payment success event sent for Order ID: {}", event.getOrderId());
-
-        } catch (Exception e) {
-            log.error("Payment error for Order ID: {}", event.getOrderId(), e);
-
-            PaymentFailedEvent failedEvent = PaymentFailedEvent.builder()
-                    .orderId(event.getOrderId())
-                    .userId(event.getUserId())
-                    .reason(e.getMessage())
-                    .failedAt(LocalDateTime.now())
-                    .build();
-            kafkaTemplate.send(PAYMENT_FAILED_TOPIC, failedEvent);
-            log.info("Payment failed event sent for Order ID: {}", event.getOrderId());
-        }
-    }
 
     @KafkaListener(topics = REFUND_REQUEST_TOPIC, groupId = PAYMENT_SERVICE_GROUP)
     public void handleRefundRequest(RefundRequestEvent event) {

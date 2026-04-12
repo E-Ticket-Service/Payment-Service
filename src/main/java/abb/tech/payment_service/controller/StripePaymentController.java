@@ -27,9 +27,11 @@ public class StripePaymentController {
             @RequestParam String currency,
             @RequestParam String description,
             @RequestParam String paymentMethod,
-            @RequestParam Long orderId
+            @RequestParam Long orderId,
+            @RequestParam Long userId,
+            @RequestParam String userEmail
     ) {
-        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description, paymentMethod, orderId);
+        Map<String, Object> stringObjectMap = stripePaymentService.createPayment(amount, currency, description, paymentMethod, orderId, userId, userEmail);
         return ResponseEntity.ok(stringObjectMap);
     }
 
